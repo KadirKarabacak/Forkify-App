@@ -7,6 +7,7 @@
 
 // Both import Model and View
 import * as model from './model.js'; // Model
+import paginationView from './views/paginationView.js';
 import recipeView from './views/recipeView.js'; // recipeView
 import resultsView from './views/resultsView.js';
 import searchView from './views/searchView.js'; // searchView
@@ -56,16 +57,28 @@ const controlSearchResults = async function () {
     await model.loadSearchResults(query);
 
     // 3) Render results
-    resultsView.render(model.getSearchResultsPage());aaaaaaaaaaaaaaaaaaaa
+    resultsView.render(model.getSearchResultsPage(4));
+
+    // 4) Render paginition buttons
+    paginationView.render(model.state.search);
   } catch (err) {
     console.log(err);
   }
+};
+
+const controlPagination = function (goToPage) {
+  // 1) Render NEW results
+  resultsView.render(model.getSearchResultsPage(goToPage));
+  //! Render method overwrite the new results, cuz we have clear method, emptying parentEl
+  // 2) Render NEW paginition buttons
+  paginationView.render(model.state.search);
 };
 
 // Publisher - Subscriber Pattern
 const init = function () {
   recipeView.addHandlerRender(controlRecipes);
   searchView.addHandlerSearch(controlSearchResults);
+  paginationView.addHandlerClick(controlPagination);
 };
 init();
 
