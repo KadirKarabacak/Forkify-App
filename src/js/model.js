@@ -3,7 +3,7 @@
 //* Veritabanıyla iletişim kurmak için kullanılan kodlar bu klasöre aittir.
 //* Uygulamanızın veri tabanındaki tabloları veya dokümanları temsil eden veri modelleri burada tanımlanır.
 
-import { API_URL, RES_PER_PAGE } from './config.js';
+import { API_URL, RES_PER_PAGE, START_PAGE } from './config.js';
 import { getJSON } from './helpers.js';
 
 // State includes all the data about application [ Export for controller ]
@@ -14,7 +14,7 @@ export const state = {
   search: {
     query: '',
     results: [],
-    page: 1,
+    page: START_PAGE,
     resultsPerPage: RES_PER_PAGE,
   },
 };
@@ -24,7 +24,6 @@ export const loadRecipe = async function (id) {
   try {
     const data = await getJSON(`${API_URL}${id}`);
 
-    //! To better format our recipe data (remove underscores)
     const { recipe } = data.data;
     // Fast and dirty way
     state.recipe = {
@@ -44,7 +43,6 @@ export const loadRecipe = async function (id) {
   }
 };
 
-//! Search feature, pass query for controller [ All Recipes ] Left sidebar
 export const loadSearchResults = async function (query) {
   try {
     // Save queries into state for analyze later
@@ -74,4 +72,13 @@ export const getSearchResultsPage = function (page = state.search.page) {
   const start = (page - 1) * state.search.resultsPerPage; // 0
   const end = page * state.search.resultsPerPage; // 9
   return state.search.results.slice(start, end);
+};
+
+export const updateServings = function (newServings) {
+  state.recipe.ingredients.forEach(ing => {
+    ing.quantity = (ing.quantity * newServings) / state.recipe.servings;
+    // newQt = oldQt * newServings / oldServings
+  });
+
+  state.recipe.servings = newServings;
 };

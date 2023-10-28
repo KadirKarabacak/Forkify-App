@@ -49,14 +49,14 @@ class PaginationView extends View {
       const btn = e.target.closest('.btn--inline');
       if (!btn) return;
 
-      const goToPage = +btn.dataset.goto;
+      const goToPage = +btn.dataset.goto; // Takes buttons's page num from dataset
       console.log(btn);
       handler(goToPage);
 
-      if (btn.classList.contains('pagination__btn--prev')) {
-      }
-      if (btn.classList.contains('pagination__btn--next')) {
-      }
+      // if (btn.classList.contains('pagination__btn--prev')) {
+      // }
+      // if (btn.classList.contains('pagination__btn--next')) {
+      // }
     });
   }
 

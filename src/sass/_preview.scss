@@ -1,7 +1,4 @@
 .preview {
-  // border-bottom: 2px solid rgba(255, 68, 0, 0.555);
-  // border-left: 2px solid rgba(255, 68, 0, 0.555);
-  // border-right: 2px solid rgba(255, 68, 0, 0.555);
   &__link {
     transition: all 0.3s;
     &:link,
@@ -14,14 +11,13 @@
     }
 
     &:hover {
-      background-color: $color-grey-light-1;
+      background-color:rgba(212, 212, 212, 0.808);
       transform: translateY(-2px);
-      border-right: 5px solid rgba(255, 71, 4, 0.801);
-      border-left: 5px solid rgba(255, 71, 4, 0.801);
     }
 
     &--active {
-      background-color: $color-grey-light-1;
+      background-color:rgb(255, 219, 140);
+      transform: translateY(-2px);
     }
   }
 

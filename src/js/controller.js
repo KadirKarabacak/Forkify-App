@@ -21,8 +21,6 @@ import 'regenerator-runtime/runtime'; // Async - await
 // }
 
 ///////////////////////////////////////////////////////////////////////////////
-//* LECTURES :
-// Parcel changes SASS to CSS and rename all imgs and icons.
 
 // Take all data from Model and View
 const controlRecipes = async function () {
@@ -35,10 +33,13 @@ const controlRecipes = async function () {
     // Render Spinner
     recipeView.renderSpinner();
 
+    // Update resultsView to mark selected search result
+    resultsView.update(model.getSearchResultsPage()) // And pass current page
+
     // Loading recipe from API
     await model.loadRecipe(id); // No need to store, returns nothing.
 
-    // 2) Rendering recipe like ReactJS
+    // 2) Rendering recipe
     recipeView.render(model.state.recipe); // Render method allow us pass data
   } catch (err) {
     recipeView.renderError();
@@ -49,7 +50,7 @@ const controlRecipes = async function () {
 const controlSearchResults = async function () {
   try {
     resultsView.renderSpinner();
-    // 1) Get search query
+    // 1) Get search query [ return input value ]
     const query = searchView.getQuery();
     if (!query) return;
 
@@ -57,7 +58,7 @@ const controlSearchResults = async function () {
     await model.loadSearchResults(query);
 
     // 3) Render results
-    resultsView.render(model.getSearchResultsPage(4));
+    resultsView.render(model.getSearchResultsPage());
 
     // 4) Render paginition buttons
     paginationView.render(model.state.search);
@@ -67,20 +68,32 @@ const controlSearchResults = async function () {
 };
 
 const controlPagination = function (goToPage) {
+  //! Render method overwrite the new results, cuz we have clear method, emptying parentEl
   // 1) Render NEW results
   resultsView.render(model.getSearchResultsPage(goToPage));
-  //! Render method overwrite the new results, cuz we have clear method, emptying parentEl
   // 2) Render NEW paginition buttons
   paginationView.render(model.state.search);
 };
 
+// Control and update servings
+const controlServings = function(newServings){
+  // Update the recipe servings [in state]
+  model.updateServings(newServings)
+  //! Update the recipe view, Right here we updating whole recipe container,
+  //! its bad for performance we need to fix only for ingredients
+  // recipeView.render(model.state.recipe); 
+  recipeView.update(model.state.recipe);
+}
+
 // Publisher - Subscriber Pattern
 const init = function () {
-  recipeView.addHandlerRender(controlRecipes);
-  searchView.addHandlerSearch(controlSearchResults);
-  paginationView.addHandlerClick(controlPagination);
+  recipeView.addHandlerRender(controlRecipes); // ['hashchange', 'load']
+  recipeView.addHandlerUpdateServings(controlServings) 
+  searchView.addHandlerSearch(controlSearchResults); // 'submit'
+  paginationView.addHandlerClick(controlPagination); // 'click'
 };
 init();
+
 
 //* The addEventListener about view, so we need to put it into view
 //* But, we don't want to put our controlRecipes function into view
