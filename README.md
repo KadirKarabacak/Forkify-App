@@ -1,4 +1,8 @@
 ![Forkify-App](src/img/Forkify-App.png)
+![Forkify-App](src/img/Forkify-Search.png)
+![Forkify-App](src/img/Forkify-Recipe-Opened.png)
+![Forkify-App](src/img/Forkify-Recipe-Ingredients.png)
+![Forkify-App](src/img/Forkify-Pagination.png)
 # Forkify-App
 Bu uygulamada bir yemek tarif uygulamasını The Complate Javascript Course - 'Jonas Schmedtmann' eşliğinde  oluşturdum.
 
