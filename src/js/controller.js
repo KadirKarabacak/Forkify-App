@@ -8,17 +8,13 @@
 // Both import Model and Views
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
-import searchView from './views/searchView.js'; 
+import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
+import bookmarksView from './views/bookmarksView.js';
 
 import 'core-js/stable'; // Others
 import 'regenerator-runtime/runtime'; // Async - await
-
-// Parcel hot module
-// if (module.hot) {
-//   module.hot.accept();
-// }
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -35,12 +31,14 @@ const controlRecipes = async function () {
 
     // Update resultsView to mark selected search result
     resultsView.update(model.getSearchResultsPage()); // And pass current page
+    bookmarksView.update(model.state.bookmarks);
 
     // Loading recipe from API
     await model.loadRecipe(id); // No need to store, returns nothing.
 
     // 2) Rendering recipe
     recipeView.render(model.state.recipe); // Render method allow us pass data
+
   } catch (err) {
     recipeView.renderError();
   }
@@ -86,19 +84,24 @@ const controlServings = function (newServings) {
 
 // Control about bookmark
 const controlAddBookmark = function () {
-  // If there is no bookmark
-  if (!model.state.recipe.bookmarked) {
-    model.addBookmark(model.state.recipe);
-  } else { // If there is bookmark
-    model.deleteBookmark(model.state.recipe.id);
-  }
-  console.log(model.state.recipe);
-  // Update 
+  // Add/Remove bookmark
+  if (!model.state.recipe.bookmarked) model.addBookmark(model.state.recipe);
+  else model.deleteBookmark(model.state.recipe.id);
+
+  // Update recipeView
   recipeView.update(model.state.recipe);
+
+  // Render bookmarks
+  bookmarksView.render(model.state.bookmarks);
+};
+
+const controlBookmarks = function () {
+  bookmarksView.render(model.state.bookmarks);
 };
 
 // Publisher - Subscriber Pattern
 const init = function () {
+  bookmarksView.addHandlerRender(controlBookmarks); // Render bookmarks at the beginning
   recipeView.addHandlerRender(controlRecipes); // ['hashchange', 'load']
   recipeView.addHandlerUpdateServings(controlServings); // E. delegation for click
   recipeView.addHandlerAddBookmark(controlAddBookmark); // E. delegation for click

@@ -41,7 +41,6 @@ export const loadRecipe = async function (id) {
     if (state.bookmarks.some(bookmark => bookmark.id === id))
       state.recipe.bookmarked = true;
     else state.recipe.bookmarked = false;
-    console.log(state.recipe);
   } catch (err) {
     // To render error into view, we have to throw it
     throw err;
@@ -92,14 +91,20 @@ export const updateServings = function (newServings) {
   state.recipe.servings = newServings;
 };
 
+// Add localStorage
+const persistBookmarks = function() {
+  // Sets items
+  localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks))
+}
+
 // Add Bookmark
 export const addBookmark = function (recipe) {
   // Add bookmark
   state.bookmarks.push(recipe);
 
-  // Mark current recipe as bookmarked
+  // Mark current recipe as bookmarked, Add new property
   if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
-  // Add new property
+  persistBookmarks()
 };
 
 export const deleteBookmark = function (id) {
@@ -109,4 +114,20 @@ export const deleteBookmark = function (id) {
 
   // Mark current recipe as NOT bookmarked
   if (id === state.recipe.id) state.recipe.bookmarked = false;
+  persistBookmarks()
 };
+
+const init = function() {
+  const storage = localStorage.getItem('bookmarks')
+  if(storage) state.bookmarks = JSON.parse(storage)
+}
+// Its an error, we need to render bookmarks at the beginning
+// The update method we made simply switching changed elements, not adds new elements
+// And here we trying to add new bookmarks [<li> elements], the solve is rendering bookmarks at the beginning.
+init()
+console.log(state.bookmarks);
+
+const clearBookmarks = function() {
+  localStorage.clear('bookmarks')
+}
+// clearBookmarks()

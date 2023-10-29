@@ -5,11 +5,16 @@ export default class View {
   _data;
 
   // Render func to use into controller for render recipes
-  render(data) {
+  render(data, render = true) {
     if (!data || (Array.isArray(data) && data.length === 0))
       return this.renderError();
+
     this._data = data;
     const markup = this._generateMarkup();
+
+    // For bookmarksView and resultsView use this guard claus and return string markup.
+    if(!render) return markup;
+
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
@@ -24,7 +29,6 @@ export default class View {
     const newDOM = document.createRange().createContextualFragment(newMarkup); // Makes virtual dom from newMarkup
     const newElements = Array.from(newDOM.querySelectorAll('*')); // Returns nodelist, so use Array.from to convert a real array
     const curElements = Array.from(this._parentElement.querySelectorAll('*')); // Returns nodelist, so use Array.from to convert a real array
-    console.log(newElements);
 
     // We need to compare them to only update necessery places so looping both array at the same time
     newElements.forEach((newEl, i) => {
