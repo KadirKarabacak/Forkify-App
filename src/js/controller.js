@@ -5,12 +5,12 @@
 //* Kullanıcı taleplerini işleyen kodlar, veritabanı sorgularını yürüten işlevler -
 //* ve sayfaların görüntülenmesini sağlayan işlevler bu klasörde bulunur.
 
-// Both import Model and View
-import * as model from './model.js'; // Model
-import paginationView from './views/paginationView.js';
-import recipeView from './views/recipeView.js'; // recipeView
+// Both import Model and Views
+import * as model from './model.js';
+import recipeView from './views/recipeView.js';
+import searchView from './views/searchView.js'; 
 import resultsView from './views/resultsView.js';
-import searchView from './views/searchView.js'; // searchView
+import paginationView from './views/paginationView.js';
 
 import 'core-js/stable'; // Others
 import 'regenerator-runtime/runtime'; // Async - await
@@ -34,7 +34,7 @@ const controlRecipes = async function () {
     recipeView.renderSpinner();
 
     // Update resultsView to mark selected search result
-    resultsView.update(model.getSearchResultsPage()) // And pass current page
+    resultsView.update(model.getSearchResultsPage()); // And pass current page
 
     // Loading recipe from API
     await model.loadRecipe(id); // No need to store, returns nothing.
@@ -53,7 +53,6 @@ const controlSearchResults = async function () {
     // 1) Get search query [ return input value ]
     const query = searchView.getQuery();
     if (!query) return;
-
     // 2) Load search results
     await model.loadSearchResults(query);
 
@@ -76,24 +75,37 @@ const controlPagination = function (goToPage) {
 };
 
 // Control and update servings
-const controlServings = function(newServings){
+const controlServings = function (newServings) {
   // Update the recipe servings [in state]
-  model.updateServings(newServings)
+  model.updateServings(newServings);
   //! Update the recipe view, Right here we updating whole recipe container,
   //! its bad for performance we need to fix only for ingredients
-  // recipeView.render(model.state.recipe); 
+  // recipeView.render(model.state.recipe);
   recipeView.update(model.state.recipe);
-}
+};
+
+// Control about bookmark
+const controlAddBookmark = function () {
+  // If there is no bookmark
+  if (!model.state.recipe.bookmarked) {
+    model.addBookmark(model.state.recipe);
+  } else { // If there is bookmark
+    model.deleteBookmark(model.state.recipe.id);
+  }
+  console.log(model.state.recipe);
+  // Update 
+  recipeView.update(model.state.recipe);
+};
 
 // Publisher - Subscriber Pattern
 const init = function () {
   recipeView.addHandlerRender(controlRecipes); // ['hashchange', 'load']
-  recipeView.addHandlerUpdateServings(controlServings) 
+  recipeView.addHandlerUpdateServings(controlServings); // E. delegation for click
+  recipeView.addHandlerAddBookmark(controlAddBookmark); // E. delegation for click
   searchView.addHandlerSearch(controlSearchResults); // 'submit'
   paginationView.addHandlerClick(controlPagination); // 'click'
 };
 init();
-
 
 //* The addEventListener about view, so we need to put it into view
 //* But, we don't want to put our controlRecipes function into view

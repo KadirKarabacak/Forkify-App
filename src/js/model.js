@@ -17,13 +17,13 @@ export const state = {
     page: START_PAGE,
     resultsPerPage: RES_PER_PAGE,
   },
+  bookmarks: [],
 };
 
 // Load recipe [ Right sidebar feature ]
 export const loadRecipe = async function (id) {
   try {
     const data = await getJSON(`${API_URL}${id}`);
-
     const { recipe } = data.data;
     // Fast and dirty way
     state.recipe = {
@@ -36,6 +36,11 @@ export const loadRecipe = async function (id) {
       cookingTime: recipe.cooking_time,
       ingredients: recipe.ingredients,
     };
+
+    // Checks bookmarks for any id === eachbookmark.id and set true or false
+    if (state.bookmarks.some(bookmark => bookmark.id === id))
+      state.recipe.bookmarked = true;
+    else state.recipe.bookmarked = false;
     console.log(state.recipe);
   } catch (err) {
     // To render error into view, we have to throw it
@@ -43,6 +48,7 @@ export const loadRecipe = async function (id) {
   }
 };
 
+// Load search results at the left
 export const loadSearchResults = async function (query) {
   try {
     // Save queries into state for analyze later
@@ -59,6 +65,8 @@ export const loadSearchResults = async function (query) {
         image: rec.image_url,
       };
     });
+    // Search something and move another page and search again so reset page
+    state.search.page = 1;
   } catch (err) {
     throw err; // Throw to controller
   }
@@ -74,6 +82,7 @@ export const getSearchResultsPage = function (page = state.search.page) {
   return state.search.results.slice(start, end);
 };
 
+// Update servings
 export const updateServings = function (newServings) {
   state.recipe.ingredients.forEach(ing => {
     ing.quantity = (ing.quantity * newServings) / state.recipe.servings;
@@ -81,4 +90,23 @@ export const updateServings = function (newServings) {
   });
 
   state.recipe.servings = newServings;
+};
+
+// Add Bookmark
+export const addBookmark = function (recipe) {
+  // Add bookmark
+  state.bookmarks.push(recipe);
+
+  // Mark current recipe as bookmarked
+  if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+  // Add new property
+};
+
+export const deleteBookmark = function (id) {
+  // Find index
+  const index = state.bookmarks.findIndex(el => el.id === id);
+  state.bookmarks.splice(index, 1);
+
+  // Mark current recipe as NOT bookmarked
+  if (id === state.recipe.id) state.recipe.bookmarked = false;
 };

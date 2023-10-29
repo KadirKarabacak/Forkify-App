@@ -17,13 +17,14 @@ export default class View {
   // Only for update ingredients instead of whole recipe container
   update(data) {
     this._data = data;
-
+    
     // At here, we have a string and we need some dom to manipulate
     const newMarkup = this._generateMarkup();
     // To convert string to dom nodes [a virtual (sanal) DOM]
     const newDOM = document.createRange().createContextualFragment(newMarkup); // Makes virtual dom from newMarkup
     const newElements = Array.from(newDOM.querySelectorAll('*')); // Returns nodelist, so use Array.from to convert a real array
     const curElements = Array.from(this._parentElement.querySelectorAll('*')); // Returns nodelist, so use Array.from to convert a real array
+    console.log(newElements);
 
     // We need to compare them to only update necessery places so looping both array at the same time
     newElements.forEach((newEl, i) => {
@@ -31,7 +32,7 @@ export default class View {
       // Update changed TEXTS
       if (
         !newEl.isEqualNode(curEl) && // Not works, it changes container, we only need to change texts
-        newEl.firstChild.nodeValue.trim() !== '' // need to select first child to reach text
+        newEl.firstChild?.nodeValue.trim() !== '' // need to select first child to reach text
       ) {
         curEl.textContent = newEl.textContent;
       }
