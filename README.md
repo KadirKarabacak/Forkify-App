@@ -6,12 +6,8 @@ In this application i create a food-recipe project with The Complate Javascript 
 ![Forkify-App](src/img/Forkify-App.png)
 <br>
 ### 🔍 Uygulamayı kullanabilmek için kullanabileceğiniz arama kelimeleri :
-* pizza
-* soup
-* avacado
-* pasta
-* y
-* z
+#### 🍕Pizza, 🍜Soup, 🥑Avocado, 🍝Pasta, Dip, 🍔Burgers, 🍞Bread, 🍳Cooking,  and so on and so forth...
+
 <br>
 
 ![Forkify-App](src/img/Forkify-Search.png)
