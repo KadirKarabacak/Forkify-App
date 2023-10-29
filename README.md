@@ -1,17 +1,26 @@
-![Forkify-App](src/img/Forkify-App.png)
 # Forkify-App
-Bu uygulamada bir yemek tarif uygulamasını The Complate Javascript Course - 'Jonas Schmedtmann' eşliğinde  oluşturdum.
+<!--Bu uygulamada bir yemek tarif uygulamasını The Complate Javascript Course - 'Jonas Schmedtmann' eşliğinde  oluşturdum.-->
+In this application i create a food-recipe project with The Complate Javascript Course - 'Jonas Schmedtmann'
+<br>
 
-### Projenin canlı versiyonu :
-  FORKIFY'I CANLIYA AL
-
-###  1- 🙋‍♂️ Uygulamayı kullanabilmek için kullanabileceğiniz arama kelimeleri :
+![Forkify-App](src/img/Forkify-App.png)
+<br>
+### 🔍 Uygulamayı kullanabilmek için kullanabileceğiniz arama kelimeleri :
 * pizza
 * soup
 * avacado
-* x
+* pasta
 * y
 * z
+<br>
+
+![Forkify-App](src/img/Forkify-Search.png)
+![Forkify-App](src/img/Forkify-Recipe-Opened.png)
+![Forkify-App](src/img/Forkify-Recipe-Ingredients.png)
+![Forkify-App](src/img/Forkify-Pagination.png)
+
+### Projenin canlı versiyonu :
+  FORKIFY'I CANLIYA AL
 
 ### 2- 🛠 Uygulamayı oluştururken kullandığım teknolojiler :
 * <img src="https://img.shields.io/badge/-JavaScript-black?style=flat&logo=javascript"/>
