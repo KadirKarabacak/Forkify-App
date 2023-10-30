@@ -1,10 +1,11 @@
+//: --- MODEL ---
 //* Model klasörü, uygulamanızın verileri ilgilidir.
 //* Veritabanı işlemleri, veri çekme ve depolama ve işleme işlevlerini içerir.
 //* Veritabanıyla iletişim kurmak için kullanılan kodlar bu klasöre aittir.
 //* Uygulamanızın veri tabanındaki tabloları veya dokümanları temsil eden veri modelleri burada tanımlanır.
 
-import { API_URL, RES_PER_PAGE, START_PAGE } from './config.js';
-import { getJSON } from './helpers.js';
+import { KEY, API_URL, RES_PER_PAGE, START_PAGE } from './config.js';
+import { getJSON, sendJSON } from './helpers.js';
 
 // State includes all the data about application [ Export for controller ]
 export const state = {
@@ -20,22 +21,30 @@ export const state = {
   bookmarks: [],
 };
 
+const createRecipeObject = function (data) {
+  const { recipe } = data.data;
+  return {
+    id: recipe.id,
+    title: recipe.title,
+    publisher: recipe.publisher,
+    sourceUrl: recipe.source_url,
+    image: recipe.image_url,
+    servings: recipe.servings,
+    cookingTime: recipe.cooking_time,
+    ingredients: recipe.ingredients,
+    ...(recipe.key && {key: recipe.key}), // Short-circuiting to add property dynamicly
+    // if there is key, it returns {key: recipe.key} and ... _> key: recipe.key
+    // if there is no key, simply nothing
+  };
+};
+
 // Load recipe [ Right sidebar feature ]
 export const loadRecipe = async function (id) {
   try {
     const data = await getJSON(`${API_URL}${id}`);
-    const { recipe } = data.data;
+
     // Fast and dirty way
-    state.recipe = {
-      id: recipe.id,
-      title: recipe.title,
-      publisher: recipe.publisher,
-      sourceUrl: recipe.source_url,
-      image: recipe.image_url,
-      servings: recipe.servings,
-      cookingTime: recipe.cooking_time,
-      ingredients: recipe.ingredients,
-    };
+    state.recipe = createRecipeObject(data);
 
     // Checks bookmarks for any id === eachbookmark.id and set true or false
     if (state.bookmarks.some(bookmark => bookmark.id === id))
@@ -92,10 +101,10 @@ export const updateServings = function (newServings) {
 };
 
 // Add localStorage
-const persistBookmarks = function() {
+const persistBookmarks = function () {
   // Sets items
-  localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks))
-}
+  localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
+};
 
 // Add Bookmark
 export const addBookmark = function (recipe) {
@@ -104,7 +113,7 @@ export const addBookmark = function (recipe) {
 
   // Mark current recipe as bookmarked, Add new property
   if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
-  persistBookmarks()
+  persistBookmarks();
 };
 
 export const deleteBookmark = function (id) {
@@ -114,20 +123,56 @@ export const deleteBookmark = function (id) {
 
   // Mark current recipe as NOT bookmarked
   if (id === state.recipe.id) state.recipe.bookmarked = false;
-  persistBookmarks()
+  persistBookmarks();
 };
 
-const init = function() {
-  const storage = localStorage.getItem('bookmarks')
-  if(storage) state.bookmarks = JSON.parse(storage)
-}
+const init = function () {
+  const storage = localStorage.getItem('bookmarks');
+  if (storage) state.bookmarks = JSON.parse(storage);
+};
 // Its an error, we need to render bookmarks at the beginning
 // The update method we made simply switching changed elements, not adds new elements
 // And here we trying to add new bookmarks [<li> elements], the solve is rendering bookmarks at the beginning.
-init()
-console.log(state.bookmarks);
+init();
 
-const clearBookmarks = function() {
-  localStorage.clear('bookmarks')
-}
-// clearBookmarks()
+const clearBookmarks = function () {
+  localStorage.clear('bookmarks');
+};
+//  clearBookmarks()
+
+export const uploadRecipe = async function (newRecipe) {
+  try {
+    // console.log(Object.entries(newRecipe));
+    const ingredients = Object.entries(newRecipe)
+      .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
+      .map(ing => {
+        const ingArr = ing[1].replaceAll(' ', '').split(',');
+
+        if (ingArr.length !== 3)
+          throw new Error(
+            'Wrong ingredient format! Please use the correct format'
+          );
+        const [quantity, unit, description] = ingArr;
+        return { quantity: quantity ? +quantity : null, unit, description };
+      });
+    // Change datas to original one
+    const recipe = {
+      title: newRecipe.title,
+      source_url: newRecipe.sourceUrl,
+      image_url: newRecipe.image,
+      publisher: newRecipe.publisher,
+      cooking_time: +newRecipe.cookingTime,
+      servings: +newRecipe.servings,
+      ingredients,
+    };
+    // POST our recipe into API
+    const data = await sendJSON(`${API_URL}?key=${KEY}`, recipe);
+    // Update our state exactly the same as we do before
+    state.recipe = createRecipeObject(data);
+
+    // Add bookmarks
+    addBookmark(state.recipe);
+  } catch (err) {
+    throw err;
+  }
+};

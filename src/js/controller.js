@@ -12,6 +12,8 @@ import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
+import addRecipeView from './views/addRecipeView.js';
+import { MODAL_TIMEOUT } from './config.js';
 
 import 'core-js/stable'; // Others
 import 'regenerator-runtime/runtime'; // Async - await
@@ -38,7 +40,6 @@ const controlRecipes = async function () {
 
     // 2) Rendering recipe
     recipeView.render(model.state.recipe); // Render method allow us pass data
-
   } catch (err) {
     recipeView.renderError();
   }
@@ -99,14 +100,43 @@ const controlBookmarks = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
+// To render error into modal, we need an async func and wait for uploadRecipe
+const controlAddRecipe = async function (newRecipe) {
+  try {
+    // Show spinner to datas uploading
+    addRecipeView.renderSpinner();
+    // Upload the new recipe to API
+    await model.uploadRecipe(newRecipe);
+    console.log(model.state.recipe);
+
+    // Render recipe
+    recipeView.render(model.state.recipe);
+
+    // Success message
+    addRecipeView.renderMessage();
+
+    // Close form window
+    setTimeout(() => {
+      addRecipeView._toggleWindow();
+    }, MODAL_TIMEOUT * 1000);
+
+    // Render bookmarks
+    bookmarksView.render(model.state.bookmarks);
+  } catch (err) {
+    console.error('🏍', err);
+    addRecipeView.renderError(err.message);
+  }
+};
+
 // Publisher - Subscriber Pattern
 const init = function () {
   bookmarksView.addHandlerRender(controlBookmarks); // Render bookmarks at the beginning
-  recipeView.addHandlerRender(controlRecipes); // ['hashchange', 'load']
-  recipeView.addHandlerUpdateServings(controlServings); // E. delegation for click
-  recipeView.addHandlerAddBookmark(controlAddBookmark); // E. delegation for click
-  searchView.addHandlerSearch(controlSearchResults); // 'submit'
-  paginationView.addHandlerClick(controlPagination); // 'click'
+  recipeView.addHandlerRender(controlRecipes); // Control Hashchange
+  recipeView.addHandlerUpdateServings(controlServings); // Change Servings
+  recipeView.addHandlerAddBookmark(controlAddBookmark); // Add Bookmark
+  searchView.addHandlerSearch(controlSearchResults); // Search Results
+  paginationView.addHandlerClick(controlPagination); // Pagination buttons
+  addRecipeView.addHandlerUpload(controlAddRecipe); // Add new Recipe
 };
 init();
 

@@ -1,3 +1,4 @@
+//: --- VIEW ---
 import icons from 'url:../../img/icons.svg'; // Icons [ Parcel 2 ]
 
 // We simply export whole class, there is no instances.
