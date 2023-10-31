@@ -103,7 +103,7 @@ body {
 .btn--inline {
   color: #f38e82;
   cursor: pointer;
-  background-color: #f9f5f3;
+  background-color: #d4d4d4ee;
   border: none;
   border-radius: 10rem;
   align-items: center;
@@ -404,13 +404,8 @@ body {
   display: flex;
 }
 
-.preview__link:hover {
+.preview__link:hover, .preview__link--active {
   background-color: #d4d4d4ce;
-  transform: translateY(-2px);
-}
-
-.preview__link--active {
-  background-color: #ffdb8c;
   transform: translateY(-2px);
 }
 
