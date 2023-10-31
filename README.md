@@ -5,7 +5,7 @@ In this application i create a food-recipe project with The Complate Javascript 
 
 ![Forkify-App](src/img/Forkify-App.png)
 <br>
-### 🔍 Uygulamayı kullanabilmek için kullanabileceğiniz arama kelimeleri :
+### 🔍 Uygulamayı kullanabilmek için bazı örnek arama kelimeleri :
 #### 🍕Pizza, 🍜Soup, 🥑Avocado, 🍝Pasta, Dip, 🍔Burgers, 🍞Bread, 🍳Cooking,  and so on and so forth...
 
 <br>
