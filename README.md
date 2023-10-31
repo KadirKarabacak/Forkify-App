@@ -5,7 +5,7 @@ In this application i create a food-recipe project with The Complate Javascript 
 
 ![Forkify-App](src/img/Forkify-App.png)
 <br>
-### 🔍 Uygulamayı kullanabilmek için kullanabileceğiniz arama kelimeleri :
+### 🔍 Uygulamayı kullanabilmek için bazı örnek arama kelimeleri :
 #### 🍕Pizza, 🍜Soup, 🥑Avocado, 🍝Pasta, Dip, 🍔Burgers, 🍞Bread, 🍳Cooking,  and so on and so forth...
 
 <br>
@@ -16,7 +16,7 @@ In this application i create a food-recipe project with The Complate Javascript 
 ![Forkify-App](src/img/Forkify-Pagination.png)
 
 ### Projenin canlı versiyonu :
-  FORKIFY'I CANLIYA AL
+ <a href="https://forkify-app-kadir.netlify.app/">Forkify-App</a> 
 
 ### 2- 🛠 Uygulamayı oluştururken kullandığım teknolojiler :
 * <img src="https://img.shields.io/badge/-JavaScript-black?style=flat&logo=javascript"/>
@@ -32,6 +32,5 @@ Projenin kurulumu için yüklenmesi gereken paketler :
 * parcel@^2.10.0
 * @parcel/transformer-sass@^2.10.0
 #### Dependencies :
-* "core-js": "^3.33.1"
-* "fractional": "^1.0.0"
-* "regenerator-runtime": "^0.14.0"
+* "fracty": "^1.0.0"
+
