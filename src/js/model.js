@@ -5,7 +5,8 @@
 //* Uygulamanızın veri tabanındaki tabloları veya dokümanları temsil eden veri modelleri burada tanımlanır.
 
 import { KEY, API_URL, RES_PER_PAGE, START_PAGE } from './config.js';
-import { getJSON, sendJSON } from './helpers.js';
+// import { getJSON, sendJSON } from './helpers.js';
+import { AJAX } from './helpers.js';
 
 // State includes all the data about application [ Export for controller ]
 export const state = {
@@ -32,7 +33,7 @@ const createRecipeObject = function (data) {
     servings: recipe.servings,
     cookingTime: recipe.cooking_time,
     ingredients: recipe.ingredients,
-    ...(recipe.key && {key: recipe.key}), // Short-circuiting to add property dynamicly
+    ...(recipe.key && { key: recipe.key }), // Short-circuiting to add property dynamicly
     // if there is key, it returns {key: recipe.key} and ... _> key: recipe.key
     // if there is no key, simply nothing
   };
@@ -41,7 +42,7 @@ const createRecipeObject = function (data) {
 // Load recipe [ Right sidebar feature ]
 export const loadRecipe = async function (id) {
   try {
-    const data = await getJSON(`${API_URL}${id}`);
+    const data = await AJAX(`${API_URL}${id}?key=${KEY}`);
 
     // Fast and dirty way
     state.recipe = createRecipeObject(data);
@@ -62,7 +63,7 @@ export const loadSearchResults = async function (query) {
     // Save queries into state for analyze later
     state.search.query = query;
 
-    const data = await getJSON(`${API_URL}?search=${query}`);
+    const data = await AJAX(`${API_URL}?search=${query}&key=${KEY}`);
 
     // Change state.search and properties which comes all recipes
     state.search.results = data.data.recipes.map(rec => {
@@ -71,6 +72,7 @@ export const loadSearchResults = async function (query) {
         title: rec.title,
         publisher: rec.publisher,
         image: rec.image_url,
+        ...(rec.key && { key: rec.key }),
       };
     });
     // Search something and move another page and search again so reset page
@@ -116,6 +118,7 @@ export const addBookmark = function (recipe) {
   persistBookmarks();
 };
 
+// Delete Bookmark
 export const deleteBookmark = function (id) {
   // Find index
   const index = state.bookmarks.findIndex(el => el.id === id);
@@ -126,6 +129,7 @@ export const deleteBookmark = function (id) {
   persistBookmarks();
 };
 
+// Get stored items
 const init = function () {
   const storage = localStorage.getItem('bookmarks');
   if (storage) state.bookmarks = JSON.parse(storage);
@@ -135,18 +139,21 @@ const init = function () {
 // And here we trying to add new bookmarks [<li> elements], the solve is rendering bookmarks at the beginning.
 init();
 
+// Clear localstorage
 const clearBookmarks = function () {
   localStorage.clear('bookmarks');
 };
-//  clearBookmarks()
+ clearBookmarks()
 
+// Upload own recipe
 export const uploadRecipe = async function (newRecipe) {
   try {
     // console.log(Object.entries(newRecipe));
     const ingredients = Object.entries(newRecipe)
       .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
       .map(ing => {
-        const ingArr = ing[1].replaceAll(' ', '').split(',');
+        const ingArr = ing[1].split(',').map(el => el.trim());
+        // const ingArr = ing[1].replaceAll(' ', '').split(',');
 
         if (ingArr.length !== 3)
           throw new Error(
@@ -166,7 +173,7 @@ export const uploadRecipe = async function (newRecipe) {
       ingredients,
     };
     // POST our recipe into API
-    const data = await sendJSON(`${API_URL}?key=${KEY}`, recipe);
+    const data = await AJAX(`${API_URL}?key=${KEY}`, recipe);
     // Update our state exactly the same as we do before
     state.recipe = createRecipeObject(data);
 

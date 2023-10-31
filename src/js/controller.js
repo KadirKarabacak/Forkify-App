@@ -14,7 +14,6 @@ import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
 import addRecipeView from './views/addRecipeView.js';
 import { MODAL_TIMEOUT } from './config.js';
-
 import 'core-js/stable'; // Others
 import 'regenerator-runtime/runtime'; // Async - await
 
@@ -96,6 +95,7 @@ const controlAddBookmark = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
+// Render bookmarks
 const controlBookmarks = function () {
   bookmarksView.render(model.state.bookmarks);
 };
@@ -115,13 +115,18 @@ const controlAddRecipe = async function (newRecipe) {
     // Success message
     addRecipeView.renderMessage();
 
+    // Render bookmarks
+    bookmarksView.render(model.state.bookmarks);
+
+    // Change id in url as our own added recipe id
+    window.history.pushState(null, '', `#${model.state.recipe.id}`); // Allow us to change url without reload page. Take 3 args
+    
+    // window.history.back() Goes to last page
+    
     // Close form window
     setTimeout(() => {
       addRecipeView._toggleWindow();
     }, MODAL_TIMEOUT * 1000);
-
-    // Render bookmarks
-    bookmarksView.render(model.state.bookmarks);
   } catch (err) {
     console.error('🏍', err);
     addRecipeView.renderError(err.message);
