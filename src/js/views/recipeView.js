@@ -2,7 +2,7 @@
 
 import View from './View.js'; // Parent View for cutted same codes
 import icons from 'url:../../img/icons.svg'; // Icons [ Parcel 2 ]
-import { Fraction } from 'fractional'; // Better format
+import fracty from "fracty";
 
 //: Usually we create a class in view
 // On view module #parentEl, #data, #clear and render(data) method are common!
@@ -44,7 +44,7 @@ class RecipeView extends View {
           <use href="${icons}#icon-check"></use>
         </svg>
         <div class="recipe__quantity">${
-          ing.quantity ? new Fraction(ing.quantity).toString() : ''
+          ing.quantity ? fracty(ing.quantity).toString() : ''
         }</div>
         <div class="recipe__description">
           <span class="recipe__unit">${ing.unit}</span>

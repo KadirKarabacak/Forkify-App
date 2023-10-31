@@ -14,8 +14,6 @@ import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
 import addRecipeView from './views/addRecipeView.js';
 import { MODAL_TIMEOUT } from './config.js';
-import 'core-js/stable'; // Others
-import 'regenerator-runtime/runtime'; // Async - await
 
 ///////////////////////////////////////////////////////////////////////////////
 
