@@ -45,3 +45,24 @@
 #### Dependencies :
 * "fracty": "^1.0.0"
 
+## 📞 İletişim
+
+<!-- <img src="https://raw.githubusercontent.com/TanZng/TanZng/master/assets/hollor_knight3.gif" width="200"/>  --> 
+
+ <details align="center">
+   <summary><b> <samp> İletişime Geçin </samp></b></summary>
+   <br>
+   <samp>
+   <b><h2 style="color: #fc6203">KADIR&nbsp;KARABACAK </h2></b>
+   <img src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif" width="250"/>
+     <br>
+     Projenin Linki: <a href="https://github.com/KadirKarabacak/Bankist-App">Bankist App</a>
+     <br>
+     <br>
+     LinkedIn: <a href="https://www.linkedin.com/in/kadir-karabacak-/"> LinkedIn Hesabım</a>
+     <br>
+     Instagram: <a href="https://www.instagram.com/kadir_krbck_/"> Instagram Hesabım</a>
+     <br>
+     Mail Adresim: <a href="#"> kadirht@hotmail.com</a>
+   </samp>
+ </details>
