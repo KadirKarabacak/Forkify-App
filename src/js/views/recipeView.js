@@ -1,7 +1,6 @@
 //* View klasörü, kullanıcı arayüzünü oluşturan HTML, CSS ve bazen JavaScript dosyalarını içerir.
-
 import View from './View.js'; // Parent View for cutted same codes
-import icons from 'url:../../img/icons.svg'; // Icons [ Parcel 2 ]
+import icons from 'url:../../img/icons.svg';
 import fracty from "fracty";
 
 //: Usually we create a class in view

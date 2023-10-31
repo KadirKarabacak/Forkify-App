@@ -6,7 +6,6 @@ class ResultsView extends View {
   _error = 'No recipes found for your query! Please try again.';
   _message = '';
 
-  // Call previewView.generateMarkup into map method
   //! We can't call simply previewView.generateMarkup(), we have to change _data
   _generateMarkup() {
     //! We need to return a string right here to able to use insertAdjacentHTML, otherwise doensn't work

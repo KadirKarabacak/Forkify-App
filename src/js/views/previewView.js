@@ -1,5 +1,5 @@
 import View from './View'; // Child class for bookmarks and results
-import icons from 'url:../../img/icons.svg'; // Icons [ Parcel 2 ]
+import icons from 'url:../../img/icons.svg';
 
 
 class PreviewView extends View {

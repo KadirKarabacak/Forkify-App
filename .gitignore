@@ -2,9 +2,11 @@ node_modules
 .parcel-cache
 dist
 
-# GIT COMMANDS :
+#! GIT COMMANDS :
 # git reset --hard HEAD                // Removes all changes back, and returns last commit
 # git log and then git reset --hard id // To return any spesified commit
 # git branch new-feature               // Creating new branch to add some features without effect original branch
 # git checkout new-feature             // Go to branch
 # git merge new-feature                // Go to master branch then merge with new-features
+
+#! Netlify directly take our github repo, and each changes immediately uploading into deployed site.
