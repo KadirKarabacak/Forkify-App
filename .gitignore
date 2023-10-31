@@ -1,6 +1,6 @@
 node_modules
-dist
 .parcel-cache
+dist
 
 # GIT COMMANDS :
 # git reset --hard HEAD                // Removes all changes back, and returns last commit

@@ -54,7 +54,7 @@ export default class View {
         // Attributes return all changed attributes
         Array.from(newEl.attributes).forEach(
           (
-            attr // Create new arr from nodelist and foreach
+            attr
           ) => curEl.setAttribute(attr.name, attr.value) // set new Attributes with name and value
         );
       }
