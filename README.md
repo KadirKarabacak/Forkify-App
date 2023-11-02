@@ -28,8 +28,7 @@
  <img src="https://img.shields.io/badge/-JavaScript-black?style=flat&logo=javascript"/> <img src="https://img.shields.io/badge/-SCSS-pink?style=flat&logo=scss"/> <img src="https://img.shields.io/badge/-HTML5-E34F26?style=flat&logo=html5&logoColor=white"> <a href="https://parceljs.org/">![PARCEL](https://img.shields.io/badge/-PARCEL-orange?style=flat&logo=parcel")</a> <a href="https://forkify-api.herokuapp.com/v2"><img src="https://img.shields.io/badge/FORKIFYAPI-black"></a> <a href="https://tr.wikipedia.org/wiki/Model-View-Controller">![MVC](https://img.shields.io/badge/-MVC-white)</a>
 
 ###  Which features i do ❓
-<p> I used the MVC model so that the code could be better understood, refactoring more easily, and new features could be added much more easily. </p>
-
+* I used the MVC model so that the code could be better understood, refactoring easily, and new features could be added much more easily.
 * I used ***AJAX calls*** to interact with the API to get recipes and add recipe.
 * I divided all my view files to code different parts of the page separately. 
 * I also created a common view file for my view files, which have similar codes.
@@ -38,7 +37,6 @@
 * For a more organized structure, I used the SASS instead of CSS3.
 * I created a reusable update method which updating only changed elements instead of whole section for better performance.
 * I used Async - Await method to fetch AJAX calls instead of then methods for more modern structure
-* For a more modern structure, I used Async - Await methods instead of 'then' methods when making AJAX calls.
 
 ### - 💻 For the installation of the project :
 #### Dev-Dependencies :
@@ -47,3 +45,24 @@
 #### Dependencies :
 * "fracty": "^1.0.0"
 
+## 📞 İletişim
+
+<!-- <img src="https://raw.githubusercontent.com/TanZng/TanZng/master/assets/hollor_knight3.gif" width="200"/>  --> 
+
+ <details align="center">
+   <summary><b> <samp> İletişime Geçin </samp></b></summary>
+   <br>
+   <samp>
+   <b><h2 style="color: #fc6203">KADIR&nbsp;KARABACAK </h2></b>
+   <img src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif" width="250"/>
+     <br>
+     Projenin Linki: <a href="https://github.com/KadirKarabacak/Bankist-App">Bankist App</a>
+     <br>
+     <br>
+     LinkedIn: <a href="https://www.linkedin.com/in/kadir-karabacak-/"> LinkedIn Hesabım</a>
+     <br>
+     Instagram: <a href="https://www.instagram.com/kadir_krbck_/"> Instagram Hesabım</a>
+     <br>
+     Mail Adresim: <a href="#"> kadirht@hotmail.com</a>
+   </samp>
+ </details>
