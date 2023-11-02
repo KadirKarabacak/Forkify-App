@@ -1,7 +1,7 @@
 class SearchView {
-  _parentEl = document.querySelector('.search'); // Form el
+  _parentEl = document.querySelector('.search');
 
-  // Gets input value
+  // Get input value
   getQuery() {
     const query = this._parentEl.querySelector('.search__field').value;
     this._clearInput();
@@ -13,7 +13,7 @@ class SearchView {
     this._parentEl.querySelector('.search__field').value = '';
   }
 
-  // Event Handler [ Subscriber - Publisher Pattern ]
+  // Submit Handler [ Subscriber - Publisher Pattern ]
   addHandlerSearch(handler) {
     this._parentEl.addEventListener('submit', function (e) {
       e.preventDefault();

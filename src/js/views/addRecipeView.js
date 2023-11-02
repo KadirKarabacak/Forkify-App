@@ -12,7 +12,7 @@ class AddRecipeView extends View {
   // Call methods at the beginning
   constructor() {
     super();
-    this._addHandlerShowWindow(); // No need to add into controller. Only import in controller
+    this._addHandlerShowWindow();
     this._addHandlerHideWindow();
   }
 
@@ -40,7 +40,7 @@ class AddRecipeView extends View {
       // Take all inputs at once, but it returns something weird.
       const dataArr = [...new FormData(this)]; // This refers _parentElement
       const data = Object.fromEntries(dataArr); // Arr to Object
-      // Copy datas with spread operator into array.
+      
       handler(data); // We need to pass this data into model to fetch another API
     });
   }

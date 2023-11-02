@@ -1,16 +1,9 @@
-//: --- MODEL ---
-//* Model klasörü, uygulamanızın verileri ilgilidir.
-//* Veritabanı işlemleri, veri çekme ve depolama ve işleme işlevlerini içerir.
-//* Veritabanıyla iletişim kurmak için kullanılan kodlar bu klasöre aittir.
-//* Uygulamanızın veri tabanındaki tabloları veya dokümanları temsil eden veri modelleri burada tanımlanır.
-
 import { KEY, API_URL, RES_PER_PAGE, START_PAGE } from './config.js';
-// import { getJSON, sendJSON } from './helpers.js';
 import { AJAX } from './helpers.js';
 
 // State includes all the data about application [ Export for controller ]
 export const state = {
-  // For each recipe includes ingredients vs
+  // For each recipe includes ingredients e.c
   recipe: {},
   // For all recipes from search feature
   search: {
@@ -33,18 +26,17 @@ const createRecipeObject = function (data) {
     servings: recipe.servings,
     cookingTime: recipe.cooking_time,
     ingredients: recipe.ingredients,
-    ...(recipe.key && { key: recipe.key }), // Short-circuiting to add property dynamicly
+    ...(recipe.key && { key: recipe.key }),
     // if there is key, it returns {key: recipe.key} and ... _> key: recipe.key
     // if there is no key, simply nothing
   };
 };
 
-// Load recipe [ Right sidebar feature ]
+// Load recipe 
 export const loadRecipe = async function (id) {
   try {
     const data = await AJAX(`${API_URL}${id}?key=${KEY}`);
 
-    // Fast and dirty way
     state.recipe = createRecipeObject(data);
 
     // Checks bookmarks for any id === eachbookmark.id and set true or false
@@ -57,7 +49,7 @@ export const loadRecipe = async function (id) {
   }
 };
 
-// Load search results at the left
+// Load search results
 export const loadSearchResults = async function (query) {
   try {
     // Save queries into state for analyze later
@@ -65,7 +57,6 @@ export const loadSearchResults = async function (query) {
 
     const data = await AJAX(`${API_URL}?search=${query}&key=${KEY}`);
 
-    // Change state.search and properties which comes all recipes
     state.search.results = data.data.recipes.map(rec => {
       return {
         id: rec.id,
@@ -75,7 +66,7 @@ export const loadSearchResults = async function (query) {
         ...(rec.key && { key: rec.key }),
       };
     });
-    // Search something and move another page and search again so reset page
+    // To reset page after any search
     state.search.page = 1;
   } catch (err) {
     throw err; // Throw to controller
@@ -104,17 +95,17 @@ export const updateServings = function (newServings) {
 
 // Add localStorage
 const persistBookmarks = function () {
-  // Sets items
   localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
 };
 
 // Add Bookmark
 export const addBookmark = function (recipe) {
-  // Add bookmark
   state.bookmarks.push(recipe);
 
   // Mark current recipe as bookmarked, Add new property
   if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+
+  // Set local storage
   persistBookmarks();
 };
 
@@ -126,6 +117,8 @@ export const deleteBookmark = function (id) {
 
   // Mark current recipe as NOT bookmarked
   if (id === state.recipe.id) state.recipe.bookmarked = false;
+
+  // Set local storage
   persistBookmarks();
 };
 
@@ -139,29 +132,29 @@ const init = function () {
 // And here we trying to add new bookmarks [<li> elements], the solve is rendering bookmarks at the beginning.
 init();
 
-// Clear localstorage
-const clearBookmarks = function () {
-  localStorage.clear('bookmarks');
-};
- clearBookmarks()
+// -- Clear localstorage
+// const clearBookmarks = function () {
+//   localStorage.clear('bookmarks');
+// };
+//  clearBookmarks()
 
 // Upload own recipe
 export const uploadRecipe = async function (newRecipe) {
   try {
-    // console.log(Object.entries(newRecipe));
     const ingredients = Object.entries(newRecipe)
       .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
       .map(ing => {
         const ingArr = ing[1].split(',').map(el => el.trim());
-        // const ingArr = ing[1].replaceAll(' ', '').split(',');
-
         if (ingArr.length !== 3)
           throw new Error(
             'Wrong ingredient format! Please use the correct format'
           );
+          // Immediately destructure 
         const [quantity, unit, description] = ingArr;
+        // Return as an object
         return { quantity: quantity ? +quantity : null, unit, description };
       });
+
     // Change datas to original one
     const recipe = {
       title: newRecipe.title,
@@ -172,8 +165,10 @@ export const uploadRecipe = async function (newRecipe) {
       servings: +newRecipe.servings,
       ingredients,
     };
+
     // POST our recipe into API
     const data = await AJAX(`${API_URL}?key=${KEY}`, recipe);
+    
     // Update our state exactly the same as we do before
     state.recipe = createRecipeObject(data);
 

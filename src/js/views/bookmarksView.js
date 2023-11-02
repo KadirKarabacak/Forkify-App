@@ -7,12 +7,12 @@ class BookmarksView extends View {
   _error = 'No bookmarks yet! Find a nice recipe and bookmark it.';
   _message = '';
 
-    addHandlerRender(handler){
-        window.addEventListener('load', handler)
-    }
+  // To fix error at the beginning load bookmarks
+  addHandlerRender(handler) {
+    window.addEventListener('load', handler);
+  }
 
-  // Call previewView.generateMarkup into map method
-  //! We can't call simply previewView.generateMarkup(), we have to change _data
+  //! Can't call simply previewView.generateMarkup(), we have to change _data
   _generateMarkup() {
     //! We need to return a string right here to able to use insertAdjacentHTML, otherwise doensn't work
     //! So add a second parameter to render method

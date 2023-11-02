@@ -1,13 +1,12 @@
-import View from './View'; // Child class for bookmarks and results
+import View from './View';
 import icons from 'url:../../img/icons.svg';
 
-
+// For both bookmarksView and resultsView
 class PreviewView extends View {
   _parentElement = '';
 
   // We create markup for both bookmarksView and resultsView
   _generateMarkup() {
-    // Creating id for dynamicly add active class, and update into controller
     const id = window.location.hash.slice(1);
     return `
         <li class="preview">

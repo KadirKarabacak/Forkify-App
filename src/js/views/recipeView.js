@@ -1,16 +1,13 @@
-//* View klasörü, kullanıcı arayüzünü oluşturan HTML, CSS ve bazen JavaScript dosyalarını içerir.
-import View from './View.js'; // Parent View for cutted same codes
+import View from './View.js';
 import icons from 'url:../../img/icons.svg';
 import fracty from "fracty";
 
-//: Usually we create a class in view
-// On view module #parentEl, #data, #clear and render(data) method are common!
 class RecipeView extends View {
   _parentElement = document.querySelector('.recipe');
   _error = 'We could not find that recipe. Please try another one!';
   _message = '';
 
-  // For Publisher - Subscriber Pattern.
+  // For Publisher - Subscriber Pattern
   addHandlerRender(handler) {
     ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
   }
@@ -21,7 +18,7 @@ class RecipeView extends View {
       const btn = e.target.closest('.btn--update-servings');
       if (!btn) return;
       const updateTo = +btn.dataset.updateTo;
-      if (updateTo > 0) handler(updateTo); // To don't go -1 -2 etc...
+      if (updateTo > 0) handler(updateTo); // Avoid to go -1 -2 
       // To reach and update servings we set data-update-to property [decode]
     });
   }
@@ -53,7 +50,7 @@ class RecipeView extends View {
       `;
   }
 
-  // Whole right section imgs, ingredients, directions etc.
+  // Whole recipe section img, ingredients, icons etc.
   _generateMarkup() {
     return `
     <figure class="recipe__fig">
@@ -147,5 +144,5 @@ class RecipeView extends View {
   }
 }
 
-// Create an instance then export it instead of whole class to better performance
+// Export instance instead of whole class for better performance
 export default new RecipeView();

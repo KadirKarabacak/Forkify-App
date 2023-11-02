@@ -1,4 +1,3 @@
-//: --- VIEW ---
 import icons from 'url:../../img/icons.svg'; // Icons [ Parcel 2 ]
 
 // We simply export whole class, there is no instances.
@@ -17,17 +16,19 @@ export default class View {
     if (!data || (Array.isArray(data) && data.length === 0))
       return this.renderError();
 
+      // Each time called render, set data to state.recipe
     this._data = data;
     const markup = this._generateMarkup();
 
     // For bookmarksView and resultsView use this guard claus and return string markup.
     if(!render) return markup;
 
+    // Clear parent el then insert New DOM
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
-  // Only for update ingredients instead of whole recipe container
+  // Only update part of changes instead of whole section
   update(data) {
     this._data = data;
     
@@ -38,14 +39,15 @@ export default class View {
     const newElements = Array.from(newDOM.querySelectorAll('*')); // Returns nodelist, so use Array.from to convert a real array
     const curElements = Array.from(this._parentElement.querySelectorAll('*')); // Returns nodelist, so use Array.from to convert a real array
 
-    // We need to compare them to only update necessery places so looping both array at the same time
+    // Compare them to only update changed places. Looping both array at the same time
     newElements.forEach((newEl, i) => {
       const curEl = curElements[i];
       // Update changed TEXTS
       if (
-        !newEl.isEqualNode(curEl) && // Not works, it changes container, we only need to change texts
-        newEl.firstChild?.nodeValue.trim() !== '' // need to select first child to reach text
+        !newEl.isEqualNode(curEl) && // Not works, it changes container, we need to change texts
+        newEl.firstChild?.nodeValue.trim() !== '' // need to select first child to reach text prop
       ) {
+        // Change cur elements with changed elements
         curEl.textContent = newEl.textContent;
       }
 
@@ -61,12 +63,12 @@ export default class View {
     });
   }
 
-  // Common parent element cleaner for views
+  // Clear parent element
   _clear() {
     this._parentElement.innerHTML = '';
   }
 
-  // Create and Show Spinner
+  // Create and insert Spinner
   renderSpinner() {
     const markup = `
     <div class="spinner">
@@ -79,7 +81,7 @@ export default class View {
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
-  // Render error [wrong recipe id]
+  // Render and insert error [wrong recipe id]
   renderError(message = this._error) {
     const markup = `
     <div class="error">

@@ -5,7 +5,7 @@ class PaginationView extends View {
   _parentElement = document.querySelector('.pagination');
   buttons = document.querySelectorAll('.btn--inline');
 
-  // Pagination buttons feature
+  // Pagination buttons
   addHandlerClick(handler) {
     this._parentElement.addEventListener('click', function (e) {
       const btn = e.target.closest('.btn--inline');
@@ -24,7 +24,7 @@ class PaginationView extends View {
       this._data.results.length / this._data.resultsPerPage
     );
 
-    // Page 1, and there are other pages
+    // We are in page 1, and there are other pages
     if (curPage === 1 && numPages > 1) {
       return `
           <button data-goto="${
@@ -38,7 +38,7 @@ class PaginationView extends View {
         `;
     }
 
-    // Last page
+    // We are in last page
     if (curPage === numPages && numPages > 1) {
         return `
             <button data-goto="${
@@ -52,7 +52,7 @@ class PaginationView extends View {
           `;
     }
 
-    // Other page
+    // We are in between first and last pages
     if (curPage < numPages) {
       return `
           <button data-goto="${
@@ -74,7 +74,7 @@ class PaginationView extends View {
         `;
     }
 
-    // Page 1, and there are no other pages
+    // We are in Page 1, and there are no other pages
     return ``;
   }
 }
