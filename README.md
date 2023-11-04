@@ -39,9 +39,7 @@
 * I used Async - Await method to fetch AJAX calls instead of then methods for more modern structure
 
 ### - 💻 For the installation of the project :
-#### Dev-Dependencies :
-* parcel@^2.10.0
-* @parcel/transformer-sass@^2.10.0
+
 #### Dependencies :
 * "fracty": "^1.0.0"
 
