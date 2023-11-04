@@ -56,7 +56,7 @@
    <b><h2 style="color: #fc6203">KADIR&nbsp;KARABACAK </h2></b>
    <img src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif" width="250"/>
      <br>
-     Projenin Linki: <a href="https://github.com/KadirKarabacak/Bankist-App">Bankist App</a>
+     Projenin Linki: <a href="">Forkify-App</a>
      <br>
      <br>
      LinkedIn: <a href="https://www.linkedin.com/in/kadir-karabacak-/"> LinkedIn Hesabım</a>
