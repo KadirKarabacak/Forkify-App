@@ -24,10 +24,10 @@
 ## 🔴 Live version of project :
  <h3><a href="https://forkify-app-kadir.netlify.app/">Forkify-App</a></h3>
 
-### - 🛠 Technologies I used when creating the application :
+### 🛠 Technologies I used when creating the application :
  <img src="https://img.shields.io/badge/-JavaScript-black?style=flat&logo=javascript"/> <img src="https://img.shields.io/badge/-SCSS-pink?style=flat&logo=scss"/> <img src="https://img.shields.io/badge/-HTML5-E34F26?style=flat&logo=html5&logoColor=white"> <a href="https://parceljs.org/">![PARCEL](https://img.shields.io/badge/-PARCEL-orange?style=flat&logo=parcel")</a> <a href="https://forkify-api.herokuapp.com/v2"><img src="https://img.shields.io/badge/FORKIFYAPI-black"></a> <a href="https://tr.wikipedia.org/wiki/Model-View-Controller">![MVC](https://img.shields.io/badge/-MVC-white)</a>
 
-###  Which features i do ❓
+### Which features i do ❓
 * I used the MVC model so that the code could be better understood, refactoring easily, and new features could be added much more easily.
 * I used ***AJAX calls*** to interact with the API to get recipes and add recipe.
 * I divided all my view files to code different parts of the page separately. 
@@ -38,7 +38,7 @@
 * I created a reusable update method which updating only changed elements instead of whole section for better performance.
 * I used Async - Await method to fetch AJAX calls instead of then methods for more modern structure
 
-### - 💻 For the installation of the project :
+### 💻 For the installation of the project :
 
 #### Dependencies :
 * "fracty": "^1.0.0"
