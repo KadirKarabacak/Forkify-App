@@ -95,8 +95,23 @@ body {
     grid-template-rows: 10rem minmax(50rem, auto);
   }
 
-  @media only screen and (max-width: $bp-small){
-    height: 100dvh;
+  @media only screen and (max-width: $bp-medium) {
+    height: 160dvh;
   }
 
+  @media only screen and (max-width: $bp-middle){
+    height: 170dvh;
+  }
+
+  @media only screen and (max-width: $bp-small){
+    height: 145dvh;
+  }
+
+  @media only screen and (max-width: $bp-smallest){
+    height: 130dvh;
+  }
+
+  @media only screen and (max-width: 25em){
+    height: 100dvh;
+  }
 }
