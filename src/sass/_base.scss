@@ -94,4 +94,9 @@ body {
   @media only screen and (max-width: $bp-middle){
     grid-template-rows: 10rem minmax(50rem, auto);
   }
+
+  @media only screen and (max-width: 25em){
+    height: 100dvh;
+  }
+
 }
