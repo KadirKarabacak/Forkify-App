@@ -80,9 +80,9 @@ const controlServings = function (newServings) {
   // recipeView.render(model.state.recipe);
   recipeView.update(model.state.recipe);
 };
+const controlAddBookmark = function () {
 
 // Control bookmark
-const controlAddBookmark = function () {
   // Add/Remove bookmark
   if (!model.state.recipe.bookmarked) model.addBookmark(model.state.recipe);
   else model.deleteBookmark(model.state.recipe.id);
@@ -92,6 +92,7 @@ const controlAddBookmark = function () {
 
   // Render bookmarks
   bookmarksView.render(model.state.bookmarks);
+
 };
 
 // Render bookmarks
@@ -132,10 +133,10 @@ const controlAddRecipe = async function (newRecipe) {
 
 // Publisher - Subscriber Pattern
 const init = function () {
+  recipeView.addHandlerAddBookmark(controlAddBookmark); // Add Bookmark
   bookmarksView.addHandlerRender(controlBookmarks); // Render bookmarks at the beginning
   recipeView.addHandlerRender(controlRecipes); // Control Hashchange
   recipeView.addHandlerUpdateServings(controlServings); // Change Servings
-  recipeView.addHandlerAddBookmark(controlAddBookmark); // Add Bookmark
   searchView.addHandlerSearch(controlSearchResults); // Search Results
   paginationView.addHandlerClick(controlPagination); // Pagination buttons
   addRecipeView.addHandlerUpload(controlAddRecipe); // Add new Recipe

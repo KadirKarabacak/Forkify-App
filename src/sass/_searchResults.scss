@@ -14,6 +14,17 @@
   list-style: none;
   margin-bottom: 2rem;
 
+  // Sonuçların widthlerini bookmark widthlerinden ayırmak adına
+  & > .preview{
+    @media only screen and (max-width: $bp-middle){
+      width: 33.3333334%;
+    }
+
+    @media only screen and (max-width: $bp-small){
+      width: 50%;
+    }
+  }
+
   @media only screen and (max-width: $bp-middle){
     display: flex;
     width: 100%;

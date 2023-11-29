@@ -134,6 +134,12 @@
 
   &__list {
     list-style: none;
+
+    & > .preview{
+      @media only screen and (max-width: $bp-middle){
+        width: 100%;
+      }
+    }
   }
 
   &__field {

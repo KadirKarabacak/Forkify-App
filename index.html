@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="src/img/favicon.png" type="image/x-icon" />
 
     <link rel="stylesheet" href="src/sass/main.scss" />
-    <script type="module" src="src/js/controller.js"></script>
+    <!-- <script type="module" src="src/js/controller.js"></script> -->
 
     <title>forkify // Search over 1,000,000 recipes</title>
   </head>
@@ -52,7 +52,7 @@
                 <span>Bookmarks</span>
               </button>
               <div class="bookmarks">
-                <ul class="bookmarks__list">
+                <ul class="bookmarks__list bookmark__width">
                   <div class="message">
                     <div>
                       <svg>
@@ -86,7 +86,7 @@
       </header>
 
       <div class="search-results">
-        <ul class="results">
+        <ul class="results results__width">
           <!-- 
           <li class="preview">
             <a class="preview__link preview__link--active" href="#23456">
@@ -317,5 +317,6 @@
         </button>
       </form>
     </div>
+    <script type="module" src="src/js/controller.js"></script>
   </body>
 </html>

@@ -3,7 +3,7 @@ import icons from 'url:../../img/icons.svg'; // Icons [ Parcel 2 ]
 // We simply export whole class, there is no instances.
 export default class View {
   _data;
-
+  
   /**
    * Render the recieved object to the DOM
    * @param {Object | Object[]} data The data to be rendered (e.g. recipe)
