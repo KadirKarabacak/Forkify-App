@@ -71,12 +71,14 @@ body {
 
 .container {
   max-width: 120rem;
-  min-height: 117rem;
+  // min-height: 117rem;
+  min-height: calc(100vh - 8vw);
   margin: 4vw auto;
   background-color: #fff;
   border-radius: 9px;
   overflow: hidden;
   box-shadow: 0 2rem 6rem 0.5rem rgba($color-grey-dark-1, 0.2);
+
 
   display: grid;
   grid-template-rows: 10rem minmax(100rem, auto);
@@ -93,25 +95,5 @@ body {
 
   @media only screen and (max-width: $bp-middle){
     grid-template-rows: 10rem minmax(50rem, auto);
-  }
-
-  @media only screen and (max-width: $bp-medium) {
-    height: 160dvh;
-  }
-
-  @media only screen and (max-width: $bp-middle){
-    height: 170dvh;
-  }
-
-  @media only screen and (max-width: $bp-small){
-    height: 145dvh;
-  }
-
-  @media only screen and (max-width: $bp-smallest){
-    height: 130dvh;
-  }
-
-  @media only screen and (max-width: 25em){
-    height: 100dvh;
   }
 }
