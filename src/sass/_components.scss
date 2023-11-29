@@ -60,7 +60,7 @@
   font-size: 1.3rem;
   font-weight: 600;
   border: none;
-  background-color: rgba(212, 212, 212, 0.932);
+  background-color: #f7f6f6;;
   padding: 0.8rem 1.2rem;
   border-radius: 10rem;
   cursor: pointer;
@@ -68,6 +68,10 @@
   display: flex;
   align-items: center;
   transition: all .2s;
+
+  @media only screen and (max-width: $bp-middle){
+    margin-right: 5rem;
+  }
 
   svg {
     height: 1.6rem;

@@ -1,6 +1,10 @@
 .recipe {
   background-color: $color-grey-light-1;
 
+  @media only screen and (max-width: $bp-middle){
+    grid-row: 3/ 4 ;
+  }
+
   ///////////
   // FIGURE
   &__fig {
@@ -8,6 +12,10 @@
     position: relative;
     // transform: scale(1.04) translateY(-1px);
     transform-origin: top;
+
+    @media only screen and (max-width: $bp-middle){
+      height: 45rem;
+    }
 
     &::before {
       content: '';

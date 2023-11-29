@@ -9,6 +9,11 @@
     margin-left: 4rem;
     height: 4.6rem;
     display: block;
+
+    @media only screen and (max-width: $bp-small){
+      margin-left: 1.5rem;
+      height: 3.5rem;
+    }
   }
 }
 
@@ -19,6 +24,10 @@
   align-items: center;
   padding-left: 3rem;
   transition: all 0.3s;
+
+  @media only screen and (max-width: $bp-small){
+    padding-left: 1.5rem;
+  }
 
   &:focus-within {
     transform: translateY(-2px);
@@ -85,6 +94,11 @@
 
     display: flex;
     align-items: center;
+
+    @media only screen and (max-width: 25em){
+      flex-direction: column;
+      justify-content: center;
+    }
 
     svg {
       height: 2.4rem;

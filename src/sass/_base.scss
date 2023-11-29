@@ -3,6 +3,9 @@ $color-primary: #f38e82;
 $color-grad-1: #fbdb89;
 $color-grad-2: #f48982;
 
+$color-grad-1-light: #ffe9b3;
+$color-grad-2-light: #f5aea8;
+
 $color-grey-light-1: #f9f5f3; // Light background
 $color-grey-light-2: #f2efee; // Light lines
 $color-grey-light-3: #d3c7c3; // Light text (placeholder)
@@ -13,8 +16,11 @@ $gradient: linear-gradient(to right bottom, $color-grad-1, $color-grad-2);
 
 $bp-large: 78.15em; // 1250px
 $bp-medium: 61.25em; // 980px
+$bp-middle: 56.25em; // 900px
 $bp-small: 37.5em; // 600px
 $bp-smallest: 31.25em; // 500px
+
+// @media only screen and (max-width: 56.25em){}
 
 * {
   margin: 0;
@@ -33,6 +39,22 @@ html {
 
   @media only screen and (max-width: $bp-medium) {
     font-size: 50%;
+  }
+
+  @media only screen and (max-width: $bp-middle){
+    font-size: 40%;
+  }
+
+  @media only screen and (max-width: $bp-small){
+    font-size: 35%;
+  }
+
+  @media only screen and (max-width: $bp-smallest){
+    font-size: 31%;
+  }
+
+  @media only screen and (max-width: 25em){
+    font-size: 25%;
   }
 }
 
@@ -67,5 +89,9 @@ body {
     max-width: 100%;
     margin: 0;
     border-radius: 0;
+  }
+
+  @media only screen and (max-width: $bp-middle){
+    grid-template-rows: 10rem minmax(50rem, auto);
   }
 }

@@ -1,4 +1,13 @@
 .preview {
+
+  @media only screen and (max-width: $bp-middle){
+    width: 33.333334%;
+  }
+
+  @media only screen and (max-width: $bp-small){
+    width: 50%;
+  }
+
   &__link {
     transition: all 0.3s;
     &:link,
@@ -8,15 +17,17 @@
       padding: 1.5rem 3.25rem;
       transition: all 0.3s;
       text-decoration: none;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
     }
 
     &:hover {
-      background-color:rgba(212, 212, 212, 0.808);
+      background-image: linear-gradient(to right bottom, $color-grad-1-light, $color-grad-2-light);
       transform: translateY(-2px);
     }
 
     &--active {
-      background-color:rgba(212, 212, 212, 0.808);
+      background-image: linear-gradient(to right bottom, $color-grad-1-light, $color-grad-2-light);
       transform: translateY(-2px);
     }
   }
